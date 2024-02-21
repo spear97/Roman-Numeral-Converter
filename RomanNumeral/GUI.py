@@ -4,81 +4,71 @@ from Converter import *
 class GUI(object):
     
     def __init__(self):
-
+        '''
+        Constructor for the GUI class.
+        Initializes the main application window and sets up GUI elements.
+        '''
         # Create a window
         self.window = tk.Tk()
 
         # Set the window title
         self.window.title("Roman Numeral Conversion App")
 
-        #Set where the the application window is spawn and it's minimum size
+        # Set the size, shape, and location of the application window
         self.Set_Geometry()
 
-        # Create a label for the name field
+        # Create a label for the Roman Numeral entry field
         self.name_label = tk.Label(self.window, text="Enter Roman Numerals Here:")
         self.name_label.pack()
 
-        # Create an entry field for the user to enter their name
+        # Create an entry field for the user to enter Roman Numerals
         self.user_entry = tk.Entry(self.window)
         self.user_entry.pack()
 
-        # Create a button to trigger the welcome message
-        self.greet_button = tk.Button(self.window, text="Convert!", command=self.Convert_Value)
-        self.greet_button.pack()
+        # Create a button to trigger the conversion
+        self.convert_button = tk.Button(self.window, text="Convert!", command=self.Convert_Value)
+        self.convert_button.pack()
 
-        # Create a label to display the welcome message
+        # Create a label to display the conversion result
         self.result_label = tk.Label(self.window, text="")
         self.result_label.pack()
 
-        #Run Application
+        # Run the application
         self.window.mainloop()
 
     def Set_Geometry(self):
-
         '''
-        Set the Size, Shape, and location of the Application Window
+        Set the size, shape, and location of the application window.
         '''
-
-        #Set the Minimum Size that the Application Window is allowed to be 
+        # Set the minimum size that the application window is allowed to be 
         size = 500 
 
-        #Get the Resolution of the Device Window that the Application is running on
+        # Get the resolution of the device window that the application is running on
         screen_width = self.window.winfo_screenwidth()
         screen_height = self.window.winfo_screenheight()
 
-        #Get the Center X-Position and the Center Y-Posiiton for the application window
+        # Get the center X-position and the center Y-position for the application window
         x = (screen_width - size) // 2
         y = (screen_height - size) // 2
 
-        #Set the Size and Location of the Application
+        # Set the size and location of the application
         self.window.geometry(f"{size}x{size}+{x}+{y}")
 
-        #Set the minimum size that the Application Window is allowed to be 
+        # Set the minimum size that the application window is allowed to be 
         self.window.minsize(size, size)
 
     def Convert_Value(self):
-
         '''
-        Handles the Conversion of the Input that is inputted by the User
+        Handles the conversion of the input entered by the user.
         '''
-        
-        #The Input entered by the User
+        # Get the input entered by the user
         user_input = self.user_entry.get()
 
-        #Is the input enterd by User a Valid Input?
-
-        #If Input is Valid
-        if(Converter().valid_input(user_input)):
-
-            #Get the Value of the Valid Input enterd by User
+        # Check if the input entered by the user is valid
+        if Converter().valid_input(user_input):
+            # If input is valid, convert the Roman Numeral to Decimal
             result = Converter().RomanNumeralToDecimal(user_input)
-
             self.result_label.config(text=result)
-
-        #If Input is InValid
         else:
-            self.result_label.config(text='Invalid Input Entered! Please Input a Valid Input!')
-
-
-
-
+            # If input is invalid, display an error message
+            self.result_label.config(text='Invalid Input! Please Enter a Valid Roman Numeral!')
